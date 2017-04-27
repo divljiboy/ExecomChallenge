@@ -5,10 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.home.challenge.MainActivity">
-
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/AppBarLayout"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
@@ -18,10 +21,19 @@
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
+
+
     </android.support.design.widget.AppBarLayout>
 
+    <FrameLayout
+        android:layout_below="@+id/AppBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/fragment_container">
 
-    <include layout="@layout/content_main" />
+    </FrameLayout>
+</RelativeLayout>
+   <!-- <include layout="@layout/content_main" />-->
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -30,5 +42,6 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@android:drawable/ic_dialog_email" />
+
 
 </android.support.design.widget.CoordinatorLayout>

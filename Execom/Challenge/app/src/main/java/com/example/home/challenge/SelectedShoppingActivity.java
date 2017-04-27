@@ -9,17 +9,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.home.Item.ItemAdapter;
 import com.example.home.ShoppingItem.ShoppingItem;
 
-import static com.example.home.challenge.MainActivity.data;
-import static com.example.home.challenge.MainActivity.items;
+
+import static com.example.home.challenge.PasswordActivity.data;
+import static com.example.home.challenge.PasswordActivity.items;
 
 
-public class SelectedActivity extends AppCompatActivity {
+public class SelectedShoppingActivity extends AppCompatActivity {
     ShoppingItem s;
     EditText name;
     CheckBox checkBox;
@@ -30,7 +30,7 @@ public class SelectedActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_selected_view);
+        setContentView(R.layout.activity_selected_shopping_view);
         s=null;
 
         name = (EditText)findViewById(R.id.name);
@@ -62,7 +62,7 @@ public class SelectedActivity extends AppCompatActivity {
 
         //data=createList(5);
 
-        ItemAdapter ca = new ItemAdapter(items,this,s);
+        ItemAdapter ca = new ItemAdapter(items,this,s,true);
         v.setAdapter(ca);
 
  }
@@ -74,6 +74,15 @@ public class SelectedActivity extends AppCompatActivity {
 
          s.setChecked(checkBox.isChecked());
          s.setName(name.getText().toString());
+
+         s.getList().clear();
+         for(int i=0;i<items.size();i++){
+             if(items.get(i).getPurchased()){
+                 Toast.makeText(this,items.get(i).getName().toString(),Toast.LENGTH_SHORT).show();
+                 s.getList().add(items.get(i));
+             }
+         }
+
          for (int i=0;i<data.size();i++) {
             if(data.get(i).getId()==s.getId())
             {
@@ -82,12 +91,7 @@ public class SelectedActivity extends AppCompatActivity {
             }
 
          }
-         for(int i=0;i<items.size();i++){
-             if(items.get(i).getPurchased()){
-                Toast.makeText(this,items.get(i).getName().toString(),Toast.LENGTH_SHORT).show();
-                 s.getList().add(items.get(i));
-             }
-         }
+
      }else{
          s=new ShoppingItem();
          s.setChecked(checkBox.isChecked());
@@ -95,6 +99,7 @@ public class SelectedActivity extends AppCompatActivity {
          data.add(s);
      }
      Intent intent= new Intent(this,MainActivity.class);
+     intent.putExtra("Fragment","ShoppingFragment");
          startActivity(intent);
 
  }

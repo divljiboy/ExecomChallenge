@@ -116,10 +116,6 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
         }*/
 
         ShoppingViewHolder.vCheckbox.setChecked(ci.isChecked());
-
-
-
-
         ShoppingViewHolder.vCheckbox.setTag(ci);
         ShoppingViewHolder.vCheckbox.setOnCheckedChangeListener(onCheckedChangeListener);
         ShoppingViewHolder.itemView.setTag(ci);

@@ -5,9 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,11 +18,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.home.Item.Item;
-import com.example.home.ShoppingItem.ShoppingAdapter;
 import com.example.home.ShoppingItem.ShoppingItem;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.home.challenge.PasswordActivity.data;
+import static com.example.home.challenge.PasswordActivity.items;
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -32,8 +34,7 @@ public class MainActivity extends AppCompatActivity
     private static Context mContext;
 
     RecyclerView recList;
-    public static List<ShoppingItem> data=null;
-    public static List<Item> items=null;
+
 
 
 
@@ -41,7 +42,47 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
+
+        Intent intent=this.getIntent();
+        if(intent.hasExtra("Fragment")) {
+            switch (intent.getStringExtra("Fragment")) {
+                case "ShoppingFragment": {
+
+                    ShoppingItemFragment fragment = new ShoppingItemFragment();
+                    FragmentTransaction fragmentTransaction = getSupportFragmentManager()
+                            .beginTransaction();
+                    fragmentTransaction.replace(R.id.fragment_container, fragment);
+                    fragmentTransaction.commit();
+
+                }
+                break;
+                case "ItemFragment": {
+                    ItemFragment fragment = new ItemFragment();
+                    FragmentTransaction fragmentTransaction = getSupportFragmentManager()
+                            .beginTransaction();
+                    fragmentTransaction.replace(R.id.fragment_container, fragment);
+                    fragmentTransaction.commit();
+                    break;
+                }
+
+
+            }
+
+        }else
+        {
+            ShoppingItemFragment fragment = new ShoppingItemFragment();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager()
+                    .beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, fragment);
+            fragmentTransaction.commit();
+        }
+
+
+
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -57,106 +98,23 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        //moj kod
-        ItemTouchHelper swipeToDismissTouchHelper;
-
-
-        mContext=this;
-
-        recList = (RecyclerView) findViewById(R.id.cardList);
 
 
 
-        recList.setHasFixedSize(true);
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        recList.setLayoutManager(llm);
-
-        Intent intent = this.getIntent();
-        Bundle bundle = intent.getExtras();
-
-        if(data==null && items==null) {
-            data = createList(5);
-            items = createItems(4);
-        }
-
-        final ShoppingAdapter ca = new ShoppingAdapter(data,this,items);
-
-        recList.setAdapter(ca);
 
 
-        swipeToDismissTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
-                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-            @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
 
 
-                return false;
-            }
-
-            @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction)
-            {
-
-
-                if(direction==4) {
-                    data.remove(viewHolder.getAdapterPosition());
-                    ca.notifyItemRemoved(viewHolder.getAdapterPosition());
-                    Snackbar.make(recList, "Delete successful" + viewHolder.getAdapterPosition(), Snackbar.LENGTH_LONG).show();
-
-                }
-
-
-            }
-
-        });
-        swipeToDismissTouchHelper.attachToRecyclerView(recList);
 
     }
 
-
-    private List createItems(int size){
-        List result = new ArrayList();
-        for (int i = 1; i <= size; i++) {
-            Item ci = new Item();
-            ci.setName("Item name"+i);
-            if(i%2==0)
-                ci.setPurchased(false);
-            else
-                ci.setPurchased(true);
-            ci.setAmount(i%5);
-
-            result.add(ci);
-        }
-        return result;
-    }
-
-
-
-    private List createList(int size) {
-
-        List result = new ArrayList();
-        for (int i = 1; i <= size; i++) {
-            ShoppingItem ci = new ShoppingItem();
-            ci.setName("Shopping list "+i);
-            if(i%2==0)
-                ci.setChecked(true);
-            else
-                ci.setChecked(false);
-
-
-            result.add(ci);
-        }
-        return result;
-
-    }
 
 
     @Override
@@ -209,6 +167,20 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_send) {
 
+        }else if (id==R.id.nav_item){
+
+            ItemFragment fragment = new ItemFragment();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager()
+                    .beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container,fragment);
+            fragmentTransaction.commit();
+
+        }else if (id==R.id.nav_shoppingitem){
+            ShoppingItemFragment fragment = new ShoppingItemFragment();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager()
+                    .beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container,fragment);
+            fragmentTransaction.commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

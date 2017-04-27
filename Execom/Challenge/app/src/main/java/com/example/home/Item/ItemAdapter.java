@@ -8,10 +8,12 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.example.home.ShoppingItem.ShoppingAdapter;
 import com.example.home.ShoppingItem.ShoppingItem;
+
 import com.example.home.challenge.R;
 
 import java.util.ArrayList;
@@ -19,7 +21,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import static com.example.home.challenge.MainActivity.items;
+import static com.example.home.challenge.PasswordActivity.items;
+
 
 /**
  * Created by Home on 4/23/2017.
@@ -32,11 +35,13 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     Context c;
     private CompoundButton.OnCheckedChangeListener onCheckedChangeListener;
     private ShoppingItem s;
+    private boolean b;
 
-    public  ItemAdapter(List<Item> _list, Context _c, ShoppingItem _s) {
+    public  ItemAdapter(List<Item> _list, Context _c, ShoppingItem _s,boolean _b) {
         this.list = _list;
         this.c=_c;
         this.s=_s;
+        this.b=_b;
 
 
         onCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
@@ -56,34 +61,15 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         };
 
     }
+    public  ItemAdapter(List<Item> _list, Context _c,boolean _b) {
+        this.list = _list;
+        this.c=_c;
+        this.b=_b;
 
-
-
-    public void addItem(Item item){
-        list.add(item);
-
-        notifyItemInserted(getItemCount() - 1);
     }
 
-    public void updateItem(Item item){
-        int pos = list.indexOf(item);
 
-        notifyItemChanged(pos);
-    }
 
-    public void deleteItem(Item item){
-        int pos = list.indexOf(item);
-        list.remove(pos);
-
-        notifyItemRemoved(pos);
-    }
-
-    public List<Item> getItems(){
-        if(list == null){
-            return new ArrayList<>();
-        }
-        return list;
-    }
 
 
 
@@ -106,9 +92,20 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
             ItemViewHolder.vBuy.setText("");
         }
 
+        if(b==true) {
+            ItemViewHolder.vCheckbox.setChecked(ci.getPurchased());
+            ItemViewHolder.vCheckbox.setTag(ci);
+            ItemViewHolder.vCheckbox.setOnCheckedChangeListener(onCheckedChangeListener);
 
-       ItemViewHolder.vCheckbox.setTag(ci);
-        ItemViewHolder.vCheckbox.setOnCheckedChangeListener(onCheckedChangeListener);
+
+        }else
+        {
+            ItemViewHolder.vCheckbox.setVisibility(View.GONE);
+            ItemViewHolder.vBuy.setVisibility(View.GONE);
+            ItemViewHolder.itemView.setTag(ci);
+            ItemViewHolder.itemView.setOnClickListener(new ItemClickedListener(c));
+        }
+
 
 
     }

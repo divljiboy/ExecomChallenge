@@ -13,14 +13,14 @@ public class Item implements Serializable {
     private int id;
     private String name;
 
-    public boolean status;
+
     private int amount;
     public boolean purchased;
     private static final AtomicInteger count = new AtomicInteger(0);
 
 
     public Item() {
-
+        this.id= count.incrementAndGet();
     }
 
     public int getId() {
