@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.home.challenge.SelectedActivity">
+
+    <RelativeLayout
+
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relativeLayout">
+        <TextView
+            android:id="@+id/labelname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Name:"
+
+            android:gravity="center_vertical"
+
+            android:textSize="14dp"
+            android:layout_alignParentLeft="true"
+            />
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/labelname"
+
+            android:gravity="center_vertical"
+
+            android:textSize="14dp"
+
+            />
+
+
+
+
+
+        <CheckBox
+            android:id="@+id/check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"/>
+        <TextView
+            android:id="@+id/labelstatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Active:"
+            android:layout_toLeftOf="@+id/check"
+
+            android:gravity="center_vertical"
+
+            android:textSize="14dp"
+
+            />
+
+
+    </RelativeLayout>
+
+
+    
+
+
+
+    <RelativeLayout
+        android:id="@+id/listabuttona"
+        android:layout_alignParentBottom="true"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:onClick="acceptClicked"
+            android:text="Accept" />
+
+
+    </RelativeLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/itemrecycle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/relativeLayout"
+        android:layout_above="@id/listabuttona"
+
+        />
+
+</RelativeLayout>
