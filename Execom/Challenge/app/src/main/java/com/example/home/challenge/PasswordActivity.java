@@ -63,12 +63,7 @@ public class PasswordActivity extends AppCompatActivity {
         for (int i = 1; i <= size; i++) {
             ShoppingItem ci = new ShoppingItem();
             ci.setName("Shopping list "+i);
-            if(i%2==0)
-                ci.setChecked(true);
-            else
-                ci.setChecked(false);
-
-
+            ci.setChecked(false);
             result.add(ci);
         }
         return result;
