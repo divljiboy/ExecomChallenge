@@ -48,6 +48,7 @@ public class SelectedShoppingActivity extends AppCompatActivity {
             s=(ShoppingItem) bundle.getSerializable("selected");
             name.setText(s.getName());
             checkBox.setChecked(s.isChecked());
+            checkBox.setEnabled(false);
         }
         else
         {
@@ -78,7 +79,6 @@ public class SelectedShoppingActivity extends AppCompatActivity {
          s.getList().clear();
          for(int i=0;i<items.size();i++){
              if(items.get(i).getPurchased()){
-                 Toast.makeText(this,items.get(i).getName().toString(),Toast.LENGTH_SHORT).show();
                  s.getList().add(items.get(i));
              }
          }
@@ -96,6 +96,12 @@ public class SelectedShoppingActivity extends AppCompatActivity {
          s=new ShoppingItem();
          s.setChecked(checkBox.isChecked());
          s.setName(name.getText().toString());
+         for(int i=0;i<items.size();i++){
+             if(items.get(i).getPurchased()){
+                 Toast.makeText(this,items.get(i).getName().toString(),Toast.LENGTH_SHORT).show();
+                 s.getList().add(items.get(i));
+             }
+         }
          data.add(s);
      }
      Intent intent= new Intent(this,MainActivity.class);

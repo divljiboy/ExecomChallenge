@@ -18,6 +18,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import static com.example.home.challenge.PasswordActivity.data;
+import static com.example.home.challenge.PasswordActivity.items;
+
 /**
  * Created by Home on 4/16/2017.
  */
@@ -110,12 +113,31 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
         ShoppingItem ci = list.get(i);
         ShoppingViewHolder.vName.setText(ci.getName());
 
-        /*for (Item it:ci.getList()) {
-            if(it.getPurchased())
+        List<Item> temp=new ArrayList<>();
 
-        }*/
+                for (Item item :ci.getList()){
+                    for (Item it:items) {
+                        if(it.getId()==item.getId())
+                        {
+                            temp.add(it);
+                            break;
+                        }
+                    }
+                }
+                if(temp.containsAll(items))
+                {
+                    ShoppingViewHolder.vCheckbox.setChecked(true);
+                }else
+                {
+                    ShoppingViewHolder.vCheckbox.setChecked(false);
+                }
+                temp.clear();
 
-        ShoppingViewHolder.vCheckbox.setChecked(ci.isChecked());
+
+
+
+       // ShoppingViewHolder.vCheckbox.setChecked(ci.isChecked());
+        ShoppingViewHolder.vCheckbox.setEnabled(false);
         ShoppingViewHolder.vCheckbox.setTag(ci);
         ShoppingViewHolder.vCheckbox.setOnCheckedChangeListener(onCheckedChangeListener);
         ShoppingViewHolder.itemView.setTag(ci);

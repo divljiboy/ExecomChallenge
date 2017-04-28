@@ -40,17 +40,18 @@ public class PasswordActivity extends AppCompatActivity {
 
     private List createItems(int size){
         List result = new ArrayList();
-        for (int i = 1; i <= size; i++) {
-            Item ci = new Item();
-            ci.setName("Item name"+i);
-            if(i%2==0)
-                ci.setPurchased(false);
-            else
-                ci.setPurchased(true);
-            ci.setAmount(i%5);
+        Item i1= new Item("Televizor",1);
+        Item i5= new Item("Frizider",1);
+        Item i2= new Item("Laptop",5);
+        Item i3= new Item("Monitor",7);
+        Item i4= new Item("Mis",2);
 
-            result.add(ci);
-        }
+        result.add(i1);
+        result.add(i2);
+        result.add(i3);
+        result.add(i4);
+        result.add(i5);
+
         return result;
     }
 

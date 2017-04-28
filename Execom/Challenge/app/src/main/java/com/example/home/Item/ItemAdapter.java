@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import static com.example.home.challenge.PasswordActivity.data;
 import static com.example.home.challenge.PasswordActivity.items;
 
 
@@ -84,12 +85,15 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         Item ci = list.get(i);
         ItemViewHolder.vName.setText(ci.getName());
         ItemViewHolder.vAmount.setText(String.valueOf(ci.getAmount()));
-        //doraditi
-        if(ci.getPurchased()) {
-            ItemViewHolder.vBuy.setText("Already bought");
-        }
-        else{
-            ItemViewHolder.vBuy.setText("");
+
+        for (ShoppingItem sh:data ) {
+            for (Item it:sh.getList()) {
+                    if(ci.getId()==it.getId())
+                    ItemViewHolder.vBuy.setText("Vec kupljen");
+
+            }
+
+
         }
 
         if(b==true) {

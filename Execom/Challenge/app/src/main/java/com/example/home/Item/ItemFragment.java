@@ -1,4 +1,4 @@
-package com.example.home.challenge;
+package com.example.home.Item;
 
 
 import android.content.Context;
@@ -19,6 +19,8 @@ import com.example.home.Item.Item;
 import com.example.home.Item.ItemAdapter;
 import com.example.home.ShoppingItem.ShoppingAdapter;
 import com.example.home.ShoppingItem.ShoppingItem;
+import com.example.home.challenge.R;
+import com.example.home.challenge.SelectedItemActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,29 +44,15 @@ public class ItemFragment  extends Fragment {
     RecyclerView recList;
 
     ItemTouchHelper swipeToDismissTouchHelper;
-
-
-
-
     Context c;
 
     Bundle bundle;
     ItemAdapter ca;
-
-
-
-
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
     }
-
-
-
 
     @Nullable
     @Override

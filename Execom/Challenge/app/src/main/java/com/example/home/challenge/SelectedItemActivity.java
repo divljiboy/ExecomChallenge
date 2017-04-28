@@ -26,6 +26,7 @@ public class SelectedItemActivity extends AppCompatActivity {
     Item s;
     EditText name;
     EditText amount;
+
     Bundle bundle;
 
 

@@ -1,8 +1,11 @@
-package com.example.home.challenge;
+package com.example.home.ShoppingItem;
 
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,8 +18,12 @@ import android.view.ViewGroup;
 import com.example.home.Item.Item;
 import com.example.home.ShoppingItem.ShoppingAdapter;
 import com.example.home.ShoppingItem.ShoppingItem;
+import com.example.home.challenge.R;
+import com.example.home.challenge.SelectedShoppingActivity;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import static com.example.home.challenge.PasswordActivity.data;
@@ -36,6 +43,8 @@ public class ShoppingItemFragment extends Fragment {
 
 
     RecyclerView recList;
+    Bundle bundle;
+
 
     ItemTouchHelper swipeToDismissTouchHelper;
 
@@ -55,7 +64,7 @@ public class ShoppingItemFragment extends Fragment {
     @Override
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.content_main, container, false);
+        final View rootView = inflater.inflate(R.layout.activity_items, container, false);
         rootView.setTag(TAG);
 
         recList = (RecyclerView) rootView.findViewById(R.id.cardList);
@@ -67,7 +76,12 @@ public class ShoppingItemFragment extends Fragment {
 
         recList.setHasFixedSize(true);
 
-
+        Collections.sort(data, new Comparator<ShoppingItem>() {
+            @Override
+            public int compare(ShoppingItem abc1, ShoppingItem abc2) {
+                return Boolean.compare(abc1.isChecked(),abc2.isChecked());
+            }
+        });
 
         final ShoppingAdapter ca = new ShoppingAdapter(data,rootView.getContext(),items);
 
@@ -101,6 +115,24 @@ public class ShoppingItemFragment extends Fragment {
 
         });
         swipeToDismissTouchHelper.attachToRecyclerView(recList);
+
+
+        FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                for(Item i:items){
+                    i.setPurchased(false);
+                }
+                Intent i= new Intent(rootView.getContext(),SelectedShoppingActivity.class);
+                bundle= new Bundle();
+                bundle.putBoolean("Action",false);
+                i.putExtras(bundle);
+                startActivity(i);
+            }
+        });
+
 
 
         return rootView;

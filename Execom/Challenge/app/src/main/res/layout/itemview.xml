@@ -34,6 +34,7 @@
         android:layout_toRightOf="@id/itemname"
 
         android:gravity="center_vertical"
+        android:paddingLeft="20dp"
 
         android:textSize="14dp"
 

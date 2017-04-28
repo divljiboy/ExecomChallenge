@@ -28,6 +28,12 @@ public class Item implements Serializable {
         return id;
     }
 
+    public Item(String name, int amount) {
+        this.name = name;
+        this.amount = amount;
+        this.id= count.incrementAndGet();
+    }
+
     public Item(String name, int amount, boolean purchased) {
         this.name = name;
         this.amount = amount;
