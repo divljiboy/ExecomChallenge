@@ -76,12 +76,7 @@ public class ShoppingItemFragment extends Fragment {
 
         recList.setHasFixedSize(true);
 
-        Collections.sort(data, new Comparator<ShoppingItem>() {
-            @Override
-            public int compare(ShoppingItem abc1, ShoppingItem abc2) {
-                return Boolean.compare(abc1.isChecked(),abc2.isChecked());
-            }
-        });
+
 
         final ShoppingAdapter ca = new ShoppingAdapter(data,rootView.getContext(),items);
 

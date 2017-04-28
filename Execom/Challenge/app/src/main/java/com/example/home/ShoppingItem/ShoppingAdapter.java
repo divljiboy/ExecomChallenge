@@ -113,30 +113,8 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
         ShoppingItem ci = list.get(i);
         ShoppingViewHolder.vName.setText(ci.getName());
 
-        List<Item> temp=new ArrayList<>();
 
-                for (Item item :ci.getList()){
-                    for (Item it:items) {
-                        if(it.getId()==item.getId())
-                        {
-                            temp.add(it);
-                            break;
-                        }
-                    }
-                }
-                if(temp.containsAll(items))
-                {
-                    ShoppingViewHolder.vCheckbox.setChecked(true);
-                }else
-                {
-                    ShoppingViewHolder.vCheckbox.setChecked(false);
-                }
-                temp.clear();
-
-
-
-
-       // ShoppingViewHolder.vCheckbox.setChecked(ci.isChecked());
+        ShoppingViewHolder.vCheckbox.setChecked(ci.isChecked());
         ShoppingViewHolder.vCheckbox.setEnabled(false);
         ShoppingViewHolder.vCheckbox.setTag(ci);
         ShoppingViewHolder.vCheckbox.setOnCheckedChangeListener(onCheckedChangeListener);
